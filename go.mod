@@ -1,4 +1,4 @@
-module github.com/raefko/cvesniper
+module github.com/raefko/CVEsniper
 
 go 1.21.4
 

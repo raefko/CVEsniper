@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	utils "github.com/raefko/cvesniper/utils"
+	utils "github.com/raefko/CVEsniper/utils"
 	"golang.org/x/mod/modfile"
 )
 
