@@ -149,12 +149,12 @@ func Snyking(module, version string) int {
 			}
 		}
 		for c := n.FirstChild; c != nil; c = c.NextSibling {
-			f(c, totalVulnerabilities)
+			totalVulnerabilities = f(c, totalVulnerabilities)
 		}
 		return totalVulnerabilities
 	}
-	return f(doc, totalVulnerabilities)
-
+	totalVulnerabilities = f(doc, totalVulnerabilities)
+	return totalVulnerabilities
 }
 
 func ChangeVersion(f *modfile.File, modulePath, newVersion string) {
