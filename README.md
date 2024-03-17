@@ -25,4 +25,5 @@ cvesniper --verbose <path_to_gomod_file>
 Contributions to CVEsniper are welcome! Please feel free to open an issue or submit a pull request if you have any improvements or bug fixes.
 
 ## License
-TODO
+
+This project is licensed under the Apache License 2.0. See the `LICENSE` file for details.
