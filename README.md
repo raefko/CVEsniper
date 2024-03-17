@@ -7,18 +7,18 @@ CVEsniper is a Go-based tool designed to audit Go modules for known vulnerabilit
 To install CVEsniper, you need to have Go installed on your machine. You can download it from [here](https://golang.org/dl/). Once Go is installed, you can install CVEsniper using the following command:
 
 ```bash
-go get github.com/raefko/CVEsniper
+go install github.com/raefko/CVEsniper/cmd/CVEsniper@latest
 ```
 
 ## Usage
 ```bash
-cvesniper <path_to_gomod_file>
+CVEsniper <path_to_gomod_file>
 ```
 
 You can enable verbose mode by using the --verbose flag:
 
 ```bash
-cvesniper --verbose <path_to_gomod_file>
+CVEsniper --verbose <path_to_gomod_file>
 ```
 
 ## Contributing
