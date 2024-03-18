@@ -1,5 +1,9 @@
 # CVEsniper
 
+> [!WARNING]  
+> CVEsniper is currently under active development: false positives and breaking changes can happen. 
+> We highly appreciate any feedback and contributions!
+
 CVEsniper is a Go-based tool designed to audit Go modules for known vulnerabilities. It fetches vulnerability data from Snyk's vulnerability database and compares it with the versions of the modules used in your project.
 
 ## Installation
