@@ -123,7 +123,7 @@ func Snyking(module, version string) int {
 					if tbody != nil {
 						rows := findAllNodes(tbody, "tr", version)
 						if len(rows) > 0 {
-							fmt.Printf("│\n├── %s : %d vulnerabilities found\n", module, len(rows))
+							fmt.Printf("│\n├── %s : %d vulnerabilities found for version %s\n", module, len(rows), version)
 							totalVulnerabilities += len(rows)
 							for i, row := range rows {
 								td := findNode(row, "td")
