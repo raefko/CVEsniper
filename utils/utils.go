@@ -11,20 +11,42 @@ import (
 	"golang.org/x/net/html"
 )
 
-func compareVersions(snyk_version, go_mod_version string) bool {
-	c, err := semver.NewConstraint(snyk_version)
+func compareSingleVersion(snykVersion, goModVersion string) bool {
+	c, err := semver.NewConstraint(snykVersion)
 	if err != nil {
-		fmt.Printf("Invalid version snyk : %s err %v", snyk_version, err)
+		fmt.Printf("Invalid version snyk : %s err %v", snykVersion, err)
 		return false
 	}
 
-	v2, err := semver.NewVersion(go_mod_version)
+	v2, err := semver.NewVersion(goModVersion)
 	if err != nil {
-		fmt.Printf("Invalid version go.mod : %s err %v", go_mod_version, err)
+		fmt.Printf("Invalid version go.mod : %s err %v", goModVersion, err)
 		return false
 	}
 
 	return c.Check(v2)
+}
+
+func compareMultipleConstraintsVersion(constraints []string, goModVersion string) bool {
+	v, err := semver.NewVersion(goModVersion)
+	if err != nil {
+		fmt.Printf("Invalid version: %s err %v", goModVersion, err)
+		return false
+	}
+
+	for _, constraint := range constraints {
+		c, err := semver.NewConstraint(constraint)
+		if err != nil {
+			fmt.Printf("Invalid constraint: %s err %v", constraint, err)
+			return false
+		}
+
+		if !c.Check(v) {
+			return false
+		}
+	}
+
+	return true
 }
 
 func findNode(n *html.Node, data string) *html.Node {
@@ -57,13 +79,14 @@ func findAllNodes(n *html.Node, data, version string) []*html.Node {
 				snykVersion := strings.TrimSpace(span.FirstChild.Data)
 				if strings.Contains(snykVersion, " ") {
 					subSpans := strings.Split(snykVersion, " ")
-					for _, subSpan := range subSpans {
-						if compareVersions(subSpan, version) {
-							result = append(result, n)
-						}
+					if len(subSpans)%3 == 0 {
+						panic("Invalid version constraint")
+					}
+					for i := 0; i < len(subSpans)/2; i += 2 {
+						compareMultipleConstraintsVersion(subSpans[i:i+2], version)
 					}
 				} else {
-					if compareVersions(snykVersion, version) {
+					if compareSingleVersion(snykVersion, version) {
 						result = append(result, n)
 					}
 				}
